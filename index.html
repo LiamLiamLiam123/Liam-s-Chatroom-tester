@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Family Chat Room</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f2f2f2;
+        }
+        .chat-container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .chat-messages {
+            overflow-y: scroll;
+            height: 300px;
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 10px;
+        }
+        .message {
+            margin-bottom: 5px;
+        }
+        .message span {
+            font-weight: bold;
+        }
+        .message span.username {
+            color: #007bff;
+        }
+        .message span.timestamp {
+            color: #aaa;
+            font-size: 0.8em;
+        }
+        .input-container {
+            display: flex;
+        }
+        .input-container input[type="text"],
+        .input-container input[type="submit"] {
+            padding: 8px;
+            border-radius: 3px;
+        }
+        .input-container input[type="text"] {
+            flex: 1;
+            padding-right: 0;
+            margin-right: 5px;
+            border: 1px solid #ccc;
+        }
+        .input-container input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-messages" id="chat-messages">
+            <!-- Messages will be displayed here -->
+        </div>
+        <div class="input-container">
+            <input type="text" id="username-input" placeholder="Enter your username...">
+            <input type="text" id="message-input" placeholder="Type your message...">
+            <input type="submit" value="Send" onclick="sendMessage()">
+        </div>
+    </div>
+
+    <script>
+        var username = '';
+
+        function sendMessage() {
+            var usernameInput = document.getElementById('username-input');
+            var messageInput = document.getElementById('message-input');
+            var usernameValue = usernameInput.value.trim();
+            var message = messageInput.value.trim();
+            
+            if (usernameValue === '') {
+                alert('Please enter your username.');
+                return;
+            }
+
+            if (message !== '') {
+                var timestamp = new Date().toLocaleTimeString();
+                var chatMessages = document.getElementById('chat-messages');
+                var newMessage = document.createElement('div');
+                newMessage.classList.add('message');
+                newMessage.innerHTML = '<span class="username">' + usernameValue + ':</span> ' + message + '<span class="timestamp">' + timestamp + '</span>';
+                chatMessages.appendChild(newMessage);
+                messageInput.value = '';
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+
+                // Store username
+                username = usernameValue;
+                usernameInput.disabled = true;
+            }
+        }
+    </script>
+</body>
+</html>
