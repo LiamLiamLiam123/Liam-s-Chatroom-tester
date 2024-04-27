@@ -20,7 +20,7 @@ const server = http.createServer((req, res) => {
 });
 
 const PORT = 3000;
-const IP_ADDRESS = '192.168.15.1';
+const IP_ADDRESS = '127.0.0.1';
 
 server.listen(PORT, IP_ADDRESS, () => {
     console.log(`Server running at http://${IP_ADDRESS}:${PORT}/`);
